@@ -1,10 +1,10 @@
-FROM mcr.microsoft.com/dotnet/sdk:6.0-alpine3.13-amd64 as build
+FROM mcr.microsoft.com/dotnet/sdk:6.0.100-preview.7-alpine3.13-amd64 as build
 COPY . /app/
 WORKDIR /app
 RUN dotnet restore
 RUN dotnet publish -c Release -o out
 
-FROM mcr.microsoft.com/dotnet/sdk:6.0-alpine3.13-amd64 as runtime
+FROM mcr.microsoft.com/dotnet/sdk:6.0.100-preview.7-alpine3.13-amd64 as runtime
 WORKDIR /app
 COPY --from=build /app/out/ ./
 COPY --from=build /app/Cecilifier.Web/wwwroot/lib/node_modules/codemirror/ wwwroot/lib/node_modules/codemirror/
